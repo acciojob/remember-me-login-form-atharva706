@@ -1,47 +1,62 @@
-<script>
-        let name = document.querySelector("#username");
-        let password = document.querySelector("#password");
-        let cb = document.querySelector("#checkbox");
-        let btn = document.querySelector("#submit");
-        let existing = document.querySelector("#existing");
 
-        // Check if credentials already exist when page loads
-        let savedUsername = localStorage.getItem("username");
-        let savedPassword = localStorage.getItem("password");
+const form = document.getElementById("loginForm");
 
-        if (savedUsername && savedPassword) {
-            existing.style.display = "block";
-        }
+const username = document.getElementById("username");
+const password = document.getElementById("password");
 
-        // Submit button
-        btn.addEventListener("click", () => {
+const checkbox = document.getElementById("checkbox");
 
-            if (cb.checked) {
-                localStorage.setItem("username", name.value);
-                localStorage.setItem("password", password.value);
+const existing = document.getElementById("existing");
 
-                alert(`logged in as ${name.value}`);
-            } else {
-                alert(`logged in as ${name.value}`);
-            }
-        });
 
-        // Remember Me checkbox
-        cb.addEventListener("change", () => {
+// Check if saved credentials already exist
+if (
+    localStorage.getItem("username") &&
+    localStorage.getItem("password")
+) {
+    existing.style.display = "block";
+}
 
-            if (!cb.checked) {
-                localStorage.removeItem("username");
-                localStorage.removeItem("password");
 
-                existing.style.display = "none";
-            }
-        });
+// Form submit
+form.addEventListener("submit", function (event) {
 
-        // Login as existing user
-        existing.addEventListener("click", () => {
+    event.preventDefault();
 
-            let savedUsername = localStorage.getItem("username");
+    const user = username.value;
+    const pass = password.value;
 
-            alert(`Logged in as ${savedUsername}`);
-        });
-    </script>
+    alert(`Logged in as ${user}`);
+
+
+    // Remember Me checked
+    if (checkbox.checked) {
+
+        localStorage.setItem("username", user);
+        localStorage.setItem("password", pass);
+
+        existing.style.display = "block";
+    }
+
+    // Remember Me unchecked
+    else {
+
+        localStorage.removeItem("username");
+        localStorage.removeItem("password");
+
+        existing.style.display = "none";
+    }
+
+});
+
+
+// Login as existing user
+existing.addEventListener("click", function () {
+
+    const savedUsername = localStorage.getItem("username");
+
+    if (savedUsername) {
+        alert(`Logged in as ${savedUsername}`);
+    }
+
+});
