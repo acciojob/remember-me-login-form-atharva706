@@ -19,9 +19,9 @@ let name = document.querySelector("#username");
                 localStorage.setItem("username", name.value);
                 localStorage.setItem("password", password.value);
 
-                alert(`logged in as ${name.value}`);
+                alert(`logged in as <${name.value}>`);
             } else {
-                alert(`logged in as ${name.value}`);
+                alert(`logged in as <${name.value}>`);
             }
         });
 
